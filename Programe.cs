@@ -147,7 +147,7 @@ namespace d
 
   public class ExcelData
   {
-    public static HttpClient client => new HttpClient { BaseAddress = new Uri("http://192.168.3.3:9005/") };
+    public static HttpClient client => new HttpClient { BaseAddress = new Uri("http://192.168.3.112:9005/") };
 
     public static async Task<Record1[]> GetRecords1Async()
     {
@@ -2717,7 +2717,7 @@ namespace d
       // await ExcelBuilder.BuildTable2();
 
       var server = new WebServer(20);
-      server.Bind("http://192.168.3.3:9040/");
+      server.Bind("http://192.168.3.112:9040/");
       server.Start();
       Console.WriteLine("running");
       Console.ReadKey();
