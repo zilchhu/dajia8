@@ -1,0 +1,281 @@
+ public static async Task BuildTable3()
+    {
+      var data = await ExcelData.GetRecords5Async();
+
+      var colLen = data.Select(v => v.Date).Distinct().Count() + 5;
+      var rowLen = data.Select(v => v.WmPoiId).Distinct().Count() * 20;
+      var yesterday = DateTime.Today.AddDays(-1).ToString("yyyyMMdd");
+
+      var doc = SpreadsheetDocument.Create(@$"D:\G\d\files\新店表{yesterday}.xlsx", SpreadsheetDocumentType.Workbook);
+      var workbookPart = doc.AddWorkbookPart();
+
+      var sstPart = workbookPart.AddNewPart<SharedStringTablePart>("r6");
+      // style
+      var workbookStylesPart = workbookPart.AddNewPart<WorkbookStylesPart>();
+      DifferentialFormats differentialFormats = new DifferentialFormats { Count = 1 };
+      differentialFormats.AppendChild(new DifferentialFormat
+      {
+        Fill = new Fill
+        {
+          PatternFill = new PatternFill
+          {
+            PatternType = new EnumValue<PatternValues>(PatternValues.Solid),
+            BackgroundColor = new BackgroundColor { Rgb = "FFFF0000" }
+          }
+        }
+      });
+      Fonts fonts = new Fonts { Count = 1 };
+      fonts.AppendChild(new Font
+      {
+        FontSize = new FontSize { Val = 11.0 },
+        Color = new Color { Theme = 1 },
+        FontName = new FontName { Val = "宋体" }
+      });
+      fonts.AppendChild(new Font
+      {
+        Bold = new Bold(),
+        FontSize = new FontSize { Val = 12.0 },
+        Color = new Color { Theme = 1 },
+        FontName = new FontName { Val = "微软雅黑" },
+        FontCharSet = new FontCharSet { Val = 134 }
+      });
+      Borders borders = new Borders { Count = 2 };
+      borders.AppendChild(new Border
+      {
+        LeftBorder = new LeftBorder(),
+        RightBorder = new RightBorder(),
+        TopBorder = new TopBorder(),
+        BottomBorder = new BottomBorder(),
+        DiagonalBorder = new DiagonalBorder()
+      });
+      borders.AppendChild(new Border
+      {
+        LeftBorder = new LeftBorder { Style = new EnumValue<BorderStyleValues>(BorderStyleValues.Thin), Color = new Color { Rgb = "FF0000FF" } },
+        RightBorder = new RightBorder(),
+        TopBorder = new TopBorder(),
+        BottomBorder = new BottomBorder()
+        // DiagonalBorder = new DiagonalBorder()
+      });
+      Fills fills = new Fills { Count = 3 };
+      fills.AppendChild(new Fill
+      {
+        PatternFill = new PatternFill { PatternType = new EnumValue<PatternValues>(PatternValues.None) }
+      });
+      fills.AppendChild(new Fill
+      {
+        PatternFill = new PatternFill { PatternType = new EnumValue<PatternValues>(PatternValues.Gray125) }
+      });
+      fills.AppendChild(new Fill
+      {
+        PatternFill = new PatternFill
+        {
+          PatternType = new EnumValue<PatternValues>(PatternValues.Solid),
+          ForegroundColor = new ForegroundColor { Rgb = "FFFFFF00" },
+        }
+      });
+
+      CellStyleFormats cellStyleFormats = new CellStyleFormats { Count = 1 };
+      cellStyleFormats.AppendChild(new CellFormat { NumberFormatId = 0, FontId = 0, FillId = 1, BorderId = 0 });
+
+      CellFormats cellFormats = new CellFormats { Count = 4 };
+      cellFormats.AppendChild(new CellFormat { NumberFormatId = 0, FontId = 0, FillId = 0, BorderId = 0, FormatId = 0 });
+      cellFormats.AppendChild(new CellFormat
+      {
+        NumberFormatId = 0,
+        FontId = 0,
+        FillId = 2,
+        BorderId = 0,
+        FormatId = 0,
+        Alignment = new Alignment
+        {
+          Horizontal = new EnumValue<HorizontalAlignmentValues>(HorizontalAlignmentValues.Center),
+          Vertical = new EnumValue<VerticalAlignmentValues>(VerticalAlignmentValues.Center)
+        },
+        ApplyFont = false,
+        ApplyFill = true,
+        ApplyBorder = false,
+        ApplyAlignment = true
+      });
+      cellFormats.AppendChild(new CellFormat { NumberFormatId = 10, FontId = 0, FillId = 0, BorderId = 0, FormatId = 0, ApplyNumberFormat = true });
+      cellFormats.AppendChild(new CellFormat { NumberFormatId = 0, FontId = 0, FillId = 0, BorderId = 1, FormatId = 0, ApplyBorder = true });
+      // CellStyles cellStyles = new CellStyles { Count = 1 };
+      // cellStyles.AppendChild(new CellStyle { Name = "Normal", FormatId = 0, BuiltinId = 0 });
+
+      Stylesheet stylesheet = new Stylesheet
+      {
+        Fonts = fonts,
+        Borders = borders,
+        Fills = fills,
+        CellStyleFormats = cellStyleFormats,
+        CellFormats = cellFormats,
+        // CellStyles = cellStyles,
+        DifferentialFormats = differentialFormats
+      };
+
+      workbookStylesPart.Stylesheet = stylesheet;
+
+
+      // sheet5 sum_month
+      var sheetPart = workbookPart.AddNewPart<WorksheetPart>("r1");
+      var sheetViews = new SheetViews();
+      sheetViews.Append(new SheetView
+      {
+        WorkbookViewId = 0,
+        Pane = new Pane { HorizontalSplit = 5, VerticalSplit = 1, State = PaneStateValues.Frozen, TopLeftCell = "F2", ActivePane = PaneValues.BottomRight }
+      });
+      var sheet = new Worksheet
+      {
+        SheetDimension = new SheetDimension { Reference = $"A1:{toColName(colLen)}{rowLen}" },
+        SheetViews = sheetViews
+      };
+      sheetPart.Worksheet = sheet;
+
+      var dates = data.Select(v => v.Date).Distinct().Select((v, i) => new { Val = v, Index = i });
+      var shopIds = data.Select(v => v.WmPoiId).Distinct().Select((v, i) => new { Val = v, Index = i });
+      var sheetData = new SheetData();
+      var headerRow = new Row { RowIndex = 1, StyleIndex = 1, CustomFormat = true };
+      var mergeCells = new MergeCells { Count = (uint)shopIds.Count() };
+
+      var hA = CreateStringCell("A1", "负责人", sstPart);
+      hA.StyleIndex = 1;
+      var hB = CreateStringCell("B1", "门店ID", sstPart);
+      hB.StyleIndex = 1;
+      var hC = CreateStringCell("C1", "门店", sstPart);
+      hC.StyleIndex = 1;
+      var hD = CreateStringCell("D1", "平台", sstPart);
+      hD.StyleIndex = 1;
+      var hE = CreateStringCell("E1", "项目", sstPart);
+      hE.StyleIndex = 1;
+      headerRow.Append(
+        hA, hB, hC, hD, hE
+      );
+      foreach (var date in dates)
+      {
+        var cell = CreateStringCell($"{toColName(date.Index + 4)}1", date.Val, sstPart);
+        cell.StyleIndex = 1;
+        headerRow.Append(cell);
+      }
+      sheetData.Append(headerRow);
+
+      var = new string[]{};
+      foreach (var shopId in shopIds)
+      {
+        var i = (uint)shopId.Index * 20 + 2;
+        var row = new Row { RowIndex = i };
+        var colA = CreateStringCell($"A{i}", data.FirstOrDefault(v => v.WmPoiId == shopId.Val)?.New_Person, sstPart);
+        var colB = CreateStringCell($"B{i}", shopId.Val, sstPart);
+        var colC = CreateStringCell($"C{i}", data.FirstOrDefault(v => v.WmPoiId == shopId.Val)?.Name, sstPart);
+        var colD = CreateStringCell($"D{i}", data.FirstOrDefault(v => v.WmPoiId == shopId.Val)?.Platform, sstPart);
+
+        
+        var colE = CreateStringCell($"E{i}", realShop.Val, sstPart);
+
+        mergeCells.Append(
+          new MergeCell { Reference = $"A{i}:$A{i + 18}" },
+          new MergeCell { Reference = $"B{i}:$B{i + 18}" },
+          new MergeCell { Reference = $"C{i}:$C{i + 18}" },
+          new MergeCell { Reference = $"D{i}:$D{i + 18}" }
+        );
+
+        row.Append(colA, colB, colC, colD);
+        foreach (var ym in yms)
+        {
+          var v = data2.FirstOrDefault(v => v.Real_Shop == realShop.Val && v.Ym == ym.Val);
+          row.Append(
+            v?.Income_Sum_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 4)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Income_Sum_Month), StyleIndex = 3 } : null,
+            v?.Consume_Sum_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 5)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Consume_Sum_Month) } : null,
+            v?.Consume_Sum_Ratio_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 6)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Consume_Sum_Ratio_Month), StyleIndex = 2 } : null,
+            v?.Cost_Sum_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 7)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Cost_Sum_Month) } : null,
+            v?.Cost_Sum_Ratio_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 8)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Cost_Sum_Ratio_Month), StyleIndex = 2 } : null,
+            v?.Rent_Cost_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 9)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Rent_Cost_Month) } : null,
+            v?.Labor_Cost_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 10)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Labor_Cost_Month) } : null,
+            v?.Water_Electr_Cost_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 11)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Water_Electr_Cost_Month) } : null,
+            v?.Cashback_Cost_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 12)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Cashback_Cost_Month) } : null,
+            v?.Oper_Cost_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 13)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Oper_Cost_Month) } : null,
+            v?.Profit_Month != null ? new Cell { CellReference = $"{toColName(ym.Index * 11 + 14)}{i}", DataType = CellValues.Number, CellValue = new CellValue((double)v?.Profit_Month) } : null
+          );
+        }
+        sheetData5.Append(row);
+      }
+
+      var bottomRow = new Row { RowIndex = (uint)realShops5.Count() + 3 };
+      var bA = CreateStringCell($"A{realShops5.Count() + 3}", "总计", sstPart);
+      bA.StyleIndex = 1;
+      bottomRow.Append(bA);
+      mergeCells.Append(new MergeCell { Reference = $"A{realShops5.Count() + 3}:C{realShops5.Count() + 3}" });
+      foreach (var ym in yms)
+      {
+        var j = toColName(ym.Index * 11 + 4);
+        var j2 = toColName(ym.Index * 11 + 5);
+        var j3 = toColName(ym.Index * 11 + 6);
+        var j4 = toColName(ym.Index * 11 + 7);  
+        var j5 = toColName(ym.Index * 11 + 8);
+        var j6 = toColName(ym.Index * 11 + 9);
+        var j7 = toColName(ym.Index * 11 + 10);
+        var j8 = toColName(ym.Index * 11 + 11);
+        var j9 = toColName(ym.Index * 11 + 12);
+        var j10 = toColName(ym.Index * 11 + 13);
+        var j11 = toColName(ym.Index * 11 + 14);
+        bottomRow.Append(
+          new Cell { CellReference = $"{j}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j}3:${j}{realShops5.Count() + 2})"), StyleIndex = 3 },
+          new Cell { CellReference = $"{j2}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j2}3:${j2}{realShops5.Count() + 2})") },
+          new Cell { CellReference = $"{j3}{realShops5.Count() + 3}", CellFormula = new CellFormula($"{j2}{realShops5.Count() + 3}/{j}{realShops5.Count() + 3}"), StyleIndex = 2 },
+          new Cell { CellReference = $"{j4}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j4}3:${j4}{realShops5.Count() + 2})") },
+          new Cell { CellReference = $"{j5}{realShops5.Count() + 3}", CellFormula = new CellFormula($"{j4}{realShops5.Count() + 3}/{j}{realShops5.Count() + 3}"), StyleIndex = 2 },
+          new Cell { CellReference = $"{j6}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j6}3:${j6}{realShops5.Count() + 2})") },
+          new Cell { CellReference = $"{j7}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j7}3:${j7}{realShops5.Count() + 2})") },
+          new Cell { CellReference = $"{j8}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j8}3:${j8}{realShops5.Count() + 2})") },
+          new Cell { CellReference = $"{j9}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j9}3:${j9}{realShops5.Count() + 2})") },
+          new Cell { CellReference = $"{j10}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j10}3:${j10}{realShops5.Count() + 2})") },
+          new Cell { CellReference = $"{j11}{realShops5.Count() + 3}", CellFormula = new CellFormula($"SUM({j11}3:${j11}{realShops5.Count() + 2})") }
+        );
+      }
+      sheetData5.Append(bottomRow);
+      sheet5.Append(sheetData5, mergeCells);
+
+      foreach (var ym in yms)
+      {
+        StringValue[] srf_5 = { $"{toColName(ym.Index * 11 + 8)}3:{toColName(ym.Index * 11 + 8)}{realShops.Count() + 3}" };
+        var cf_5 = new ConditionalFormatting { SequenceOfReferences = new ListValue<StringValue>(srf_5) };
+        var cfRule_5 = new ConditionalFormattingRule
+        {
+          Type = new EnumValue<ConditionalFormatValues>(ConditionalFormatValues.CellIs),
+          FormatId = 0,
+          Priority = ym.Index * 2 + 5,
+          Operator = new EnumValue<ConditionalFormattingOperatorValues>(ConditionalFormattingOperatorValues.GreaterThan)
+        };
+        cfRule_5.AppendChild(new Formula("0.5"));
+        cf_5.AppendChild(cfRule_5);
+
+        StringValue[] srf2_5 = { $"{toColName(ym.Index * 11 + 6)}3:{toColName(ym.Index * 11 + 6)}{realShops.Count() + 3}" };
+        var cf2_5 = new ConditionalFormatting { SequenceOfReferences = new ListValue<StringValue>(srf2_5) };
+        var cfRule2_5 = new ConditionalFormattingRule
+        {
+          Type = new EnumValue<ConditionalFormatValues>(ConditionalFormatValues.CellIs),
+          FormatId = 0,
+          Priority = ym.Index * 2 + 6,
+          Operator = new EnumValue<ConditionalFormattingOperatorValues>(ConditionalFormattingOperatorValues.GreaterThan)
+        };
+        cfRule2_5.AppendChild(new Formula("0.045"));
+        cf2_5.AppendChild(cfRule2_5);
+        sheet5.Append(cf2_5, cf_5);
+      }
+
+
+      var sheets = new Sheets();
+      sheets.Append(
+        new Sheet { Id = "r1", Name = "sheet1", SheetId = 1 },
+        new Sheet { Id = "r2", Name = "收入汇总", SheetId = 2 },
+        new Sheet { Id = "r33", Name = "成本汇总", SheetId = 3 },
+        new Sheet { Id = "r4", Name = "推广汇总", SheetId = 4 },
+        new Sheet { Id = "r5", Name = "总计(月)", SheetId = 5 },
+        new Sheet { Id = "r66", Name = "总计(日)", SheetId = 6 }
+      );
+
+      var pivotCaches = new PivotCaches();
+      pivotCaches.Append(new PivotCache { CacheId = 1, Id = "r3" });
+      workbookPart.Workbook = new Workbook { Sheets = sheets, PivotCaches = pivotCaches };
+
+      doc.Save();
+      doc.Close();
+    }
