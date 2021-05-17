@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\G\\d\\d.csproj": {}
+    "c:\\work\\d\\d.csproj": {}
   },
   "projects": {
-    "D:\\G\\d\\d.csproj": {
+    "c:\\work\\d\\d.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\G\\d\\d.csproj",
+        "projectUniqueName": "c:\\work\\d\\d.csproj",
         "projectName": "d",
-        "projectPath": "D:\\G\\d\\d.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\G\\d\\obj\\",
+        "projectPath": "c:\\work\\d\\d.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "c:\\work\\d\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -41,6 +41,10 @@
             "DocumentFormat.OpenXml": {
               "target": "Package",
               "version": "[2.12.2, )"
+            },
+            "GenHTTP.Core": {
+              "target": "Package",
+              "version": "[5.2.0, )"
             },
             "Humanizer": {
               "target": "Package",
@@ -70,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.12.2" />
+    <PackageReference Include="GenHTTP.Core" Version="5.2.0" />
     <PackageReference Include="Humanizer" Version="2.8.26" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
     <PackageReference Include="WindowsBase" Version="4.6.1055" />

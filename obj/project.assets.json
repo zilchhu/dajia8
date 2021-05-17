@@ -14,6 +14,163 @@
           "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {}
         }
       },
+      "GenHTTP.Api/5.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/GenHTTP.Api.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Api.dll": {}
+        }
+      },
+      "GenHTTP.Core/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Engine": "5.2.0",
+          "GenHTTP.Modules.Basics": "5.2.0",
+          "GenHTTP.Modules.Layouting": "5.2.0",
+          "GenHTTP.Modules.Practices": "5.2.0"
+        }
+      },
+      "GenHTTP.Engine/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.ErrorHandling": "5.2.0",
+          "GenHTTP.Modules.IO": "5.2.0",
+          "GenHTTP.Modules.Placeholders": "5.2.0",
+          "PooledAwait": "1.0.49",
+          "System.IO.Pipelines": "5.0.1"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Engine.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Engine.dll": {}
+        }
+      },
+      "GenHTTP.Modules.Basics/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "System.Text.Json": "5.0.1"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.Basics.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.Basics.dll": {}
+        }
+      },
+      "GenHTTP.Modules.ClientCaching/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.Basics": "5.2.0",
+          "PooledAwait": "1.0.49"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.ClientCaching.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.ClientCaching.dll": {}
+        }
+      },
+      "GenHTTP.Modules.Compression/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.Compression.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.Compression.dll": {}
+        }
+      },
+      "GenHTTP.Modules.ErrorHandling/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.Basics": "5.2.0"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.ErrorHandling.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.ErrorHandling.dll": {}
+        }
+      },
+      "GenHTTP.Modules.IO/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.Basics": "5.2.0",
+          "PooledAwait": "1.0.49"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.IO.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.IO.dll": {}
+        }
+      },
+      "GenHTTP.Modules.Layouting/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.Basics": "5.2.0"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.Layouting.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.Layouting.dll": {}
+        }
+      },
+      "GenHTTP.Modules.Placeholders/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.Basics": "5.2.0",
+          "GenHTTP.Modules.IO": "5.2.0"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.Placeholders.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.Placeholders.dll": {}
+        }
+      },
+      "GenHTTP.Modules.Practices/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.ClientCaching": "5.2.0",
+          "GenHTTP.Modules.Compression": "5.2.0",
+          "GenHTTP.Modules.Security": "5.2.0"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.Practices.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.Practices.dll": {}
+        }
+      },
+      "GenHTTP.Modules.Security/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "GenHTTP.Api": "5.2.0",
+          "GenHTTP.Modules.Basics": "5.2.0"
+        },
+        "compile": {
+          "lib/net5.0/GenHTTP.Modules.Security.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/GenHTTP.Modules.Security.dll": {}
+        }
+      },
       "Humanizer/2.8.26": {
         "type": "package",
         "dependencies": {
@@ -565,6 +722,15 @@
           "lib/net20/Microsoft.Office.Interop.Excel.dll": {}
         }
       },
+      "PooledAwait/1.0.49": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/PooledAwait.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/PooledAwait.dll": {}
+        }
+      },
       "System.IO.Packaging/4.7.0": {
         "type": "package",
         "compile": {
@@ -572,6 +738,24 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.IO.Packaging.dll": {}
+        }
+      },
+      "System.IO.Pipelines/5.0.1": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/System.IO.Pipelines.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.IO.Pipelines.dll": {}
+        }
+      },
+      "System.Text.Json/5.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       },
       "WindowsBase/4.6.1055": {
@@ -606,6 +790,173 @@
         "lib/netstandard1.3/DocumentFormat.OpenXml.xml",
         "lib/netstandard2.0/DocumentFormat.OpenXml.dll",
         "lib/netstandard2.0/DocumentFormat.OpenXml.xml"
+      ]
+    },
+    "GenHTTP.Api/5.2.0": {
+      "sha512": "HTXGMXJzQwmKIxMb0/SafRcsdLaA1rLE1UHe6a45P2bO1U9LCKe0ShZNXdMqwn9kIrxlro9hdmlpkz+VKFtj2w==",
+      "type": "package",
+      "path": "genhttp.api/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.api.5.2.0.nupkg.sha512",
+        "genhttp.api.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Api.dll"
+      ]
+    },
+    "GenHTTP.Core/5.2.0": {
+      "sha512": "oY3nPnTTr3L9DmzwG6TCKINlUTLrteTE+9QRKtOzPZJFCq6OWKKNXTvhDGqudMzPA/KNTSDzMJv8H74TRPSTHA==",
+      "type": "package",
+      "path": "genhttp.core/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.core.5.2.0.nupkg.sha512",
+        "genhttp.core.nuspec",
+        "images/icon.png"
+      ]
+    },
+    "GenHTTP.Engine/5.2.0": {
+      "sha512": "dY3PcgV4htQXZXwVBNScFi9+L6hIt/nuDYzBrTeMmDawUBr7OclH4XJcqAq3PeN8aJPnCt1xg2hcKaCR59i6nA==",
+      "type": "package",
+      "path": "genhttp.engine/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.engine.5.2.0.nupkg.sha512",
+        "genhttp.engine.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Engine.dll"
+      ]
+    },
+    "GenHTTP.Modules.Basics/5.2.0": {
+      "sha512": "8hiy/M4SWm1O7UbwWCV0QRicf00ZzFeYbqq6NhIocpzFkjJrp31Ms32ztNEUWR6uRsUY4GhHpZ7nrHV2+i4rdg==",
+      "type": "package",
+      "path": "genhttp.modules.basics/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.basics.5.2.0.nupkg.sha512",
+        "genhttp.modules.basics.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.Basics.dll"
+      ]
+    },
+    "GenHTTP.Modules.ClientCaching/5.2.0": {
+      "sha512": "gL/smOd3aTx4c4a8qBLdCUDh1YrP3w1ofz8Pg4QyioWpMPeBmr253WWj2c6fg2fdL7lxAyTjvJqFww1FwZh52A==",
+      "type": "package",
+      "path": "genhttp.modules.clientcaching/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.clientcaching.5.2.0.nupkg.sha512",
+        "genhttp.modules.clientcaching.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.ClientCaching.dll"
+      ]
+    },
+    "GenHTTP.Modules.Compression/5.2.0": {
+      "sha512": "RPYsNqW9GCbBdBS6FecIdjuTLUi1drUnlE49GM4O9KKdr2PCLT/lqltYICLJvAj7UKrYqPdXcUDkrGK2S4E/fA==",
+      "type": "package",
+      "path": "genhttp.modules.compression/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.compression.5.2.0.nupkg.sha512",
+        "genhttp.modules.compression.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.Compression.dll"
+      ]
+    },
+    "GenHTTP.Modules.ErrorHandling/5.2.0": {
+      "sha512": "Ik+pwSqLYADgC0JEkOzOvd2sLy8qdHSSYDTROFTJGypmpHcZeYR7rp5B4iQBfTa2Vm2K7L4KmjXnMUF+d7VgMQ==",
+      "type": "package",
+      "path": "genhttp.modules.errorhandling/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.errorhandling.5.2.0.nupkg.sha512",
+        "genhttp.modules.errorhandling.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.ErrorHandling.dll"
+      ]
+    },
+    "GenHTTP.Modules.IO/5.2.0": {
+      "sha512": "0zXsH4hjECjg2SXLFJkH5xeXDzfJg0wctjPViY8VCeDoSCGBMTlUhvyKWj8CE8K6YCN291Bj7XH2JQHMYcmmDQ==",
+      "type": "package",
+      "path": "genhttp.modules.io/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.io.5.2.0.nupkg.sha512",
+        "genhttp.modules.io.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.IO.dll"
+      ]
+    },
+    "GenHTTP.Modules.Layouting/5.2.0": {
+      "sha512": "HkCiA1DnweAoyjST/F0ZcXuh01zVakpNnOk3ftBJ6ZWMafiQvKOjxkaaKEkhXbhNcC3nX8YWtdQlSkPxfXAnlA==",
+      "type": "package",
+      "path": "genhttp.modules.layouting/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.layouting.5.2.0.nupkg.sha512",
+        "genhttp.modules.layouting.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.Layouting.dll"
+      ]
+    },
+    "GenHTTP.Modules.Placeholders/5.2.0": {
+      "sha512": "l61zoy9TnmmqDx933asn4f5tsA8Nt4ZGh6FmX5Q5romoVVXDUmeR/NE/PqkG1Jqw717PQ1WwSro0iXBtLxPuiA==",
+      "type": "package",
+      "path": "genhttp.modules.placeholders/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.placeholders.5.2.0.nupkg.sha512",
+        "genhttp.modules.placeholders.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.Placeholders.dll"
+      ]
+    },
+    "GenHTTP.Modules.Practices/5.2.0": {
+      "sha512": "HH3o1HPEfTPk5Cn4RcW3KdG05xBuyr40pjJwzYB+5NgHuD8fJ2DZdlcg8rh/MXPYbczpVMP8DPPiW4rAQugGZA==",
+      "type": "package",
+      "path": "genhttp.modules.practices/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.practices.5.2.0.nupkg.sha512",
+        "genhttp.modules.practices.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.Practices.dll"
+      ]
+    },
+    "GenHTTP.Modules.Security/5.2.0": {
+      "sha512": "1gJLvH8ctgVKiEzSR1tf/ambjoAl3nXfKbWDN14aDHsCaDUjizr74EswV7jm6KPa2Klmzgdv/syQHze6gzTQpA==",
+      "type": "package",
+      "path": "genhttp.modules.security/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "genhttp.modules.security.5.2.0.nupkg.sha512",
+        "genhttp.modules.security.nuspec",
+        "icon.png",
+        "lib/net5.0/GenHTTP.Modules.Security.dll"
       ]
     },
     "Humanizer/2.8.26": {
@@ -1264,6 +1615,29 @@
         "microsoft.office.interop.excel.nuspec"
       ]
     },
+    "PooledAwait/1.0.49": {
+      "sha512": "stq3Af/4ptnLFbtrniDcZCeSl0JtZoiTnPHm1pkJ6sQM07Jj1zG9NN5rOP5dVh2VNSblloKTxBVAnBJ8MktlFw==",
+      "type": "package",
+      "path": "pooledawait/1.0.49",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/PooledAwait.dll",
+        "lib/net45/PooledAwait.xml",
+        "lib/net461/PooledAwait.dll",
+        "lib/net461/PooledAwait.xml",
+        "lib/netcoreapp3.0/PooledAwait.dll",
+        "lib/netcoreapp3.0/PooledAwait.xml",
+        "lib/netstandard1.3/PooledAwait.dll",
+        "lib/netstandard1.3/PooledAwait.xml",
+        "lib/netstandard2.0/PooledAwait.dll",
+        "lib/netstandard2.0/PooledAwait.xml",
+        "lib/netstandard2.1/PooledAwait.dll",
+        "lib/netstandard2.1/PooledAwait.xml",
+        "pooledawait.1.0.49.nupkg.sha512",
+        "pooledawait.nuspec"
+      ]
+    },
     "System.IO.Packaging/4.7.0": {
       "sha512": "9VV4KAbgRQZ79iEoG40KIeZy38O30oWwewScAST879+oki8g/Wa2HXZQgrhDDxQM4GkP1PnRJll05NMiVPbYAw==",
       "type": "package",
@@ -1291,6 +1665,54 @@
         "version.txt"
       ]
     },
+    "System.IO.Pipelines/5.0.1": {
+      "sha512": "qEePWsaq9LoEEIqhbGe6D5J8c9IqQOUuTzzV6wn1POlfdLkJliZY3OlB0j0f17uMWlqZYjH7txj+2YbyrIA8Yg==",
+      "type": "package",
+      "path": "system.io.pipelines/5.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.IO.Pipelines.dll",
+        "lib/net461/System.IO.Pipelines.xml",
+        "lib/netcoreapp3.0/System.IO.Pipelines.dll",
+        "lib/netcoreapp3.0/System.IO.Pipelines.xml",
+        "lib/netstandard1.3/System.IO.Pipelines.dll",
+        "lib/netstandard1.3/System.IO.Pipelines.xml",
+        "lib/netstandard2.0/System.IO.Pipelines.dll",
+        "lib/netstandard2.0/System.IO.Pipelines.xml",
+        "ref/netcoreapp2.0/System.IO.Pipelines.dll",
+        "ref/netcoreapp2.0/System.IO.Pipelines.xml",
+        "system.io.pipelines.5.0.1.nupkg.sha512",
+        "system.io.pipelines.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Text.Json/5.0.1": {
+      "sha512": "/UM3UK1dXKl8Ybysg/21gM4S8DJgkR+yLU8JwqCVbuNqQNImelntgYFAN5QxR8sJJ1kMx//hOUdf0lltosi8cQ==",
+      "type": "package",
+      "path": "system.text.json/5.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Json.dll",
+        "lib/net461/System.Text.Json.xml",
+        "lib/netcoreapp3.0/System.Text.Json.dll",
+        "lib/netcoreapp3.0/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.5.0.1.nupkg.sha512",
+        "system.text.json.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "WindowsBase/4.6.1055": {
       "sha512": "1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
       "type": "package",
@@ -1307,25 +1729,26 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "DocumentFormat.OpenXml >= 2.12.2",
+      "GenHTTP.Core >= 5.2.0",
       "Humanizer >= 2.8.26",
       "Microsoft.Office.Interop.Excel >= 15.0.4795.1000",
       "WindowsBase >= 4.6.1055"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\G\\d\\d.csproj",
+      "projectUniqueName": "c:\\work\\d\\d.csproj",
       "projectName": "d",
-      "projectPath": "D:\\G\\d\\d.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\G\\d\\obj\\",
+      "projectPath": "c:\\work\\d\\d.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "c:\\work\\d\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -1352,6 +1775,10 @@
           "DocumentFormat.OpenXml": {
             "target": "Package",
             "version": "[2.12.2, )"
+          },
+          "GenHTTP.Core": {
+            "target": "Package",
+            "version": "[5.2.0, )"
           },
           "Humanizer": {
             "target": "Package",
@@ -1381,7 +1808,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   },
